@@ -22,7 +22,8 @@ def stock_picker(stock_arr)
 		buy += 1
 	end
 
-	puts best_picks
+	puts "Best day to buy: " +  best_picks[0].to_s
+	puts "Best day to sell: " + best_picks[1].to_s
 end
 
 stock_picker([58, 65, 77, 82, 66, 44, 33, 35, 40, 55, 48])
