@@ -32,10 +32,10 @@ def substrings(word, dictionary)
 
 	end
 
-	puts word_count
+	word_count
 
 end
 
 dictionary = ["below","down","go","going","horn","how","howdy","it","i","low","own","part","partner","sit"]
-substrings("Howdy partner, sit down! How's it going?", dictionary)
-substrings("below", dictionary)
+p substrings("Howdy partner, sit down! How's it going?", dictionary)
+p substrings("below", dictionary)
