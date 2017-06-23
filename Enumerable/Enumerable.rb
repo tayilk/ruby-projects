@@ -91,15 +91,21 @@ module Enumerable
 		return count
 	end
 
-	def my_map
+	def my_map(p=nil)
 		x = 0
 		new_arr = []
 
-		while x < self.size
+		if p
+			while x < self.size
+				new_arr.push(p.call(self[x]))
+				x += 1
+			end
+		else
 
-			new_arr.push(yield(self[x]))
-			x += 1
-
+			while x < self.size
+				new_arr.push(yield(self[x]))
+				x += 1
+			end
 		end
 		new_arr
 	end
