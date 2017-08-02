@@ -8,6 +8,10 @@ class Player
 		@symbol = symbol
 	end
 
+	def add_win
+		@games_won += 1
+	end
+
 	def name
 		@name
 	end

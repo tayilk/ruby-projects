@@ -36,6 +36,7 @@ class Game
 				choice = gets.chomp
 				if choice == 'n' || choice == 'N'
 					go = false
+					next
 				else
 					self.reset_game
 				end
@@ -45,8 +46,10 @@ class Game
 			puts "#{p1.name}, please select an open space."
 			get_choice(1)
 			if determine_win == 1
-				puts "#{p1.name} wins!" 
-				p1.games_won += 1
+				board.draw_board()
+				puts "#{p1.name} wins!"
+				p1.add_win
+				self.display_score
 				next
 			end
 
@@ -54,8 +57,10 @@ class Game
 			puts "#{p2.name}, please select an open space."
 			get_choice(2)
 			if determine_win == 2
+				board.draw_board()
 				puts "#{p2.name} wins!"
-				p2.games_won += 1
+				p2.add_win
+				self.display_score
 				next
 			end
 		end
@@ -69,8 +74,10 @@ class Game
 
 			if p1 == 3
 				return 1
+				p1.games_won += 1
 			elsif p2 == 3
 				return 2
+				p2.games_won += 1
 			end
 		end
 		0
@@ -105,5 +112,13 @@ class Game
 		@played_spaces = []
 		@board = Board.new()
 	end
-					
+
+	def display_score
+		p1 = @players[0]
+		p2 = @players[1]
+		puts "Current Score"
+		puts "--------------"
+		puts "#{p1.name} - #{p1.games_won}"
+		puts "#{p2.name} - #{p2.games_won}"
+	end
 end
