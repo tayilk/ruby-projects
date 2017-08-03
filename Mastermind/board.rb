@@ -34,4 +34,26 @@ class Board
 		end
 	end
 
+	#guess argument is an array of symbols, this make sit easy
+	#to check against the @code array
+	def check_code(guess)
+		#array to be returned, white if correct color and black
+		#if correct color and position 
+		feedback = []
+
+		guess.each_with_index do |g, ind|
+			if g == @code[ind]
+				feedback.push(:black)
+			elsif @code.include?(g)
+				if @code.count(g) == feedback.count(g)
+					feedback.push(:blank)
+				else
+					feedback.push(:white)
+				end
+			else
+				feedback.push(:blank)
+			end
+		end
+		feedback
+	end
 end
