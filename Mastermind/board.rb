@@ -4,7 +4,7 @@ class Board
 
 	def initialize
 		@code = []
-		@colors = [:red,:blue,:yellow,:green,:cyan,:white]
+		@colors = [:red,:blue,:yellow,:green,:cyan,:white, :black]
 		generate_code(4)
 	end
 
@@ -15,8 +15,8 @@ class Board
 		end	
 	end
 
-	def display_code
-		@code.each do |color|
+	def display_code(input_code)
+		input_code.each do |color|
 			case color
 			when :red
 				print "\033[31m⚫\033[0m"
@@ -30,15 +30,17 @@ class Board
 				print "\033[36m⚫\033[0m"
 			when :white
 				print "\033[37m⚫\033[0m"
+			when :black
+				print "\033[30m⚫\033[0m"
 			end	
 		end
 	end
 
-	#guess argument is an array of symbols, this make sit easy
-	#to check against the @code array
+	def reveal_answer
+		display_code(@code)
+	end
+
 	def check_code(guess)
-		#array to be returned, white if correct color and black
-		#if correct color and position 
 		feedback = []
 
 		guess.each_with_index do |g, ind|
