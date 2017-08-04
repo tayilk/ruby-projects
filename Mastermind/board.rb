@@ -4,7 +4,7 @@ class Board
 
 	def initialize
 		@code = []
-		@colors = [:red,:blue,:yellow,:green,:cyan,:white, :black]
+		@colors = [:red,:blue,:yellow,:green,:cyan,:white]
 		generate_code(4)
 	end
 
@@ -15,24 +15,40 @@ class Board
 		end	
 	end
 
+	def display_choices
+		puts "Please select four of the following: "
+		@colors.each_with_index do |color, ind|
+			print "#{ind} = "
+			display_color(color)
+			print " "
+		end
+		puts ""
+	end
+
+	def display_color(color)
+		case color
+		when :red
+			print "\033[31m⚫\033[0m"
+		when :blue
+			print "\033[34m⚫\033[0m"
+		when :yellow
+			print "\033[33m⚫\033[0m"
+		when :green
+			print "\033[32m⚫\033[0m"
+		when :cyan
+			print "\033[36m⚫\033[0m"
+		when :white
+			print "\033[37m⚫\033[0m"
+		when :black
+			print "\033[30m⚫\033[0m"
+		when :blank
+			print " "
+		end	
+	end
+
 	def display_code(input_code)
 		input_code.each do |color|
-			case color
-			when :red
-				print "\033[31m⚫\033[0m"
-			when :blue
-				print "\033[34m⚫\033[0m"
-			when :yellow
-				print "\033[33m⚫\033[0m"
-			when :green
-				print "\033[32m⚫\033[0m"
-			when :cyan
-				print "\033[36m⚫\033[0m"
-			when :white
-				print "\033[37m⚫\033[0m"
-			when :black
-				print "\033[30m⚫\033[0m"
-			end	
+			display_color(color)
 		end
 	end
 
@@ -57,5 +73,10 @@ class Board
 			end
 		end
 		feedback
+	end
+
+	def recieve_guess(guess)
+		feedback = check_code(guess)
+		display_code(feedback)
 	end
 end
