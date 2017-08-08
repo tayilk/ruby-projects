@@ -58,25 +58,52 @@ class Board
 
 	def check_code(guess)
 		feedback = []
-
+		temp = []
+		@code.each{ |c| temp << c }
 		guess.each_with_index do |g, ind|
 			if g == @code[ind]
-				feedback.push(:black)
-			elsif @code.include?(g)
-				if @code.count(g) == feedback.count(g)
-					feedback.push(:blank)
-				else
-					feedback.push(:white)
-				end
+				feedback[ind] = :black
+				temp[ind] = :erased
+			elsif temp.include?(g)
+				feedback[ind] = :white
+				x = temp.index(g)
+				temp[x] = :erased
 			else
-				feedback.push(:blank)
+				feedback[ind] = :blank
 			end
 		end
 		feedback
 	end
 
 	def recieve_guess(guess)
-		feedback = check_code(guess)
+		our_guess = []
+
+		guess.each do |g|
+			case g
+			when 0
+				our_guess.push(:red)
+			when 1
+				our_guess.push(:blue)
+			when 2
+				our_guess.push(:yellow)
+			when 3
+				our_guess.push(:green)
+			when 4 
+				our_guess.push(:cyan)
+			when 5
+				our_guess.push(:white)
+			end
+		end
+		display_code(our_guess)
+		puts ""
+		feedback = check_code(our_guess)
 		display_code(feedback)
+		puts ""
+		feedback.each do |f|
+			if f != :black
+				return false
+			end
+		end
+		true
 	end
 end
